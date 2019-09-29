@@ -12,6 +12,9 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.stereotype.Controller;
+
+import java.util.Random;
 
 
 @Entity
@@ -26,6 +29,14 @@ public class User {
 	@Column(nullable = false, unique = true)
 	@JsonProperty
 	private String username;
+
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@Column(nullable = false)
+	private String password;
+
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@Column(nullable = false)
+	private Long salt;
 	
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id", referencedColumnName = "id")
@@ -55,7 +66,22 @@ public class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
-	
-	
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		Random random = new Random();
+		this.salt = random.nextLong();
+		this.password = password;
+	}
+
+	public Long getSalt() {
+		return salt;
+	}
+
+	public void setSalt(Long salt) {
+		this.salt = salt;
+	}
 }
