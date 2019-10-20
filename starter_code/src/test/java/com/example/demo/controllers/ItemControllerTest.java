@@ -47,6 +47,42 @@ public class ItemControllerTest {
         assertEquals(new BigDecimal(2.99), responseItem.getPrice());
     }
 
+    @Test
+    public void get_item_by_id() throws Exception {
+        Item item = getItem();
+        when(itemRepository.findById(0L)).thenReturn(java.util.Optional.of(item));
+
+        final ResponseEntity<Item> responseEntity = itemController.getItemById(0L);
+
+        assertNotNull(responseEntity);
+        assertEquals(200, responseEntity.getStatusCodeValue());
+
+        Item responseItem = responseEntity.getBody();
+        assertNotNull(responseItem);
+        assertEquals("Test item description", responseItem.getDescription());
+        assertEquals((Long) 0L, responseItem.getId());
+        assertEquals("Test Item Name", responseItem.getName());
+        assertEquals(new BigDecimal(2.99), responseItem.getPrice());
+    }
+
+    @Test
+    public void get_items_by_name() throws Exception {
+        Item item = getItem();
+        when(itemRepository.findByName("Test")).thenReturn(Collections.singletonList(item));
+
+        final ResponseEntity<List<Item>> responseEntity = itemController.getItemsByName("Test");
+
+        assertNotNull(responseEntity);
+        assertEquals(200, responseEntity.getStatusCodeValue());
+
+        Item responseItem = responseEntity.getBody().get(0);
+        assertNotNull(responseItem);
+        assertEquals("Test item description", responseItem.getDescription());
+        assertEquals((Long) 0L, responseItem.getId());
+        assertEquals("Test Item Name", responseItem.getName());
+        assertEquals(new BigDecimal(2.99), responseItem.getPrice());
+    }
+
     private Item getItem() {
         Item item = new Item();
         item.setDescription("Test item description");

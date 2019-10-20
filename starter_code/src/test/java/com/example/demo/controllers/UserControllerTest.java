@@ -55,6 +55,36 @@ public class UserControllerTest {
     }
 
     @Test
+    public void create_user_short_password() throws Exception{
+        when(bCryptPasswordEncoder.encode("test")).thenReturn("thisIsHashed");
+        CreateUserRequest createUserRequest = new CreateUserRequest();
+
+        createUserRequest.setUsername("test");
+        createUserRequest.setPassword("test");
+        createUserRequest.setConfirmPassword("test");
+
+        final ResponseEntity<User> responseEntity = userController.createUser(createUserRequest);
+
+        assertNotNull(responseEntity);
+        assertEquals(400, responseEntity.getStatusCodeValue());
+    }
+
+    @Test
+    public void create_user_not_confirmed_password() throws Exception{
+        when(bCryptPasswordEncoder.encode("test")).thenReturn("thisIsHashed");
+        CreateUserRequest createUserRequest = new CreateUserRequest();
+
+        createUserRequest.setUsername("test");
+        createUserRequest.setPassword("testPassword");
+        createUserRequest.setConfirmPassword("test");
+
+        final ResponseEntity<User> responseEntity = userController.createUser(createUserRequest);
+
+        assertNotNull(responseEntity);
+        assertEquals(400, responseEntity.getStatusCodeValue());
+    }
+
+    @Test
     public void verify_find_user_by_id() throws Exception{
         User user = getUser();
         when(userRepository.findById(0L)).thenReturn(java.util.Optional.of(user));
