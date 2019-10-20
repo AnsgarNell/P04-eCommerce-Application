@@ -56,11 +56,7 @@ public class UserControllerTest {
 
     @Test
     public void verify_find_user_by_id() throws Exception{
-        User user = new User();
-        user.setId(0);
-        user.setUsername("test");
-        user.setPassword("testPassword");
-        user.setSalt(1L);
+        User user = getUser();
         when(userRepository.findById(0L)).thenReturn(java.util.Optional.of(user));
 
         final ResponseEntity<User> responseEntity = userController.findById(0L);
@@ -77,11 +73,7 @@ public class UserControllerTest {
 
     @Test
     public void verify_find_user_by_name() throws Exception{
-        User user = new User();
-        user.setId(0);
-        user.setUsername("test");
-        user.setPassword("testPassword");
-        user.setSalt(1L);
+        User user = getUser();
         when(userRepository.findByUsername("test")).thenReturn(user);
 
         final ResponseEntity<User> responseEntity = userController.findByUserName("test");
@@ -94,5 +86,14 @@ public class UserControllerTest {
         assertEquals(0, responseUser.getId());
         assertEquals("test", responseUser.getUsername());
         assertEquals("testPassword", responseUser.getPassword());
+    }
+
+    private User getUser() {
+        User user = new User();
+        user.setId(0);
+        user.setUsername("test");
+        user.setPassword("testPassword");
+        user.setSalt(1L);
+        return user;
     }
 }
