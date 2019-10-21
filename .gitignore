@@ -7,3 +7,5 @@ apache-activemq-5.15.9-bin.tar.gz
 *.iws
 *.iml
 *.ipr
+
+logs/
