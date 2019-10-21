@@ -13,7 +13,7 @@
     <loggers>
         <root level="debug">
             <appender-ref ref="LogToConsole" level="info"/>
-            <appender-ref ref="LogToFile" level="debug"/>
+            <appender-ref ref="LogToFile" level="info"/>
             <appender-ref ref="LogToFile" level="error"/>
         </root>
     </loggers>
