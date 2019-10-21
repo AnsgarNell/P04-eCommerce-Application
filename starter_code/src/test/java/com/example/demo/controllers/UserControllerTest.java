@@ -118,7 +118,7 @@ public class UserControllerTest {
         assertEquals("testPassword", responseUser.getPassword());
     }
 
-    private User getUser() {
+    public static User getUser() {
         User user = new User();
         user.setId(0);
         user.setUsername("test");

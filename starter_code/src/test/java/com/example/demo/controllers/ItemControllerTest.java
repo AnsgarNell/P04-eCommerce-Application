@@ -5,7 +5,6 @@ import com.example.demo.model.persistence.Item;
 import com.example.demo.model.persistence.repositories.ItemRepository;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
@@ -83,7 +82,7 @@ public class ItemControllerTest {
         assertEquals(new BigDecimal(2.99), responseItem.getPrice());
     }
 
-    private Item getItem() {
+    public static Item getItem() {
         Item item = new Item();
         item.setDescription("Test item description");
         item.setId(0L);
